@@ -1,0 +1,25 @@
+language: python
+sudo: false
+cache: pip
+
+matrix:
+  include:
+    - python: "2.7"
+    - python: "3.5"
+    - python: "3.6"
+    - python: "pypy"
+
+
+before_install:
+  - pip install pip setuptools --upgrade
+
+install:
+  - pip install -r dev-requirements.txt
+  - python setup.py install
+
+script:
+  - flake8 syx tests
+  - python -m pytest --cov syx --cov-report term-missing tests
+
+notifications:
+    email: false
