@@ -47,7 +47,7 @@ setup(
     version=__version__,
     description="Python 2 and 3 compatability library",
     long_description=readme(),
-    url='www.github.com/lyft/syx',
+    url='https://www.github.com/lyft/syx/',
     maintainer='Roy Willams',
     maintainer_email='rwilliams@lyft.com',
     packages=find_packages(exclude=['tests*']),
