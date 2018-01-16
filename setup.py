@@ -22,17 +22,23 @@ if use_cython:
             # are up-to-date
             cythonize(['syx/_speedups.pyx'])
             _sdist.run(self)
-    cmdclass['sdist'] = sdist
     cmdclass.update({
         'build_ext': build_ext
     })
 else:
+    class sdist(_sdist):
+        def run(self):
+            # Make sure the compiled Cython files in the distribution
+            # are up-to-date
+            raise Exception('Cython required to build sdist.')
     ext_modules += [
         Extension(
             "syx._speedups",
             ["syx/_speedups.c"],
             extra_compile_args=["-O3"]),
     ]
+
+cmdclass['sdist'] = sdist
 
 __version__ = '0.4.0'
 
