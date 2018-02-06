@@ -66,7 +66,11 @@ def test_hasattr():
     assert hasattr(GoesBoom(), 'ok')
     assert hasattr(GoesBoom(), 'dynamic')
     assert not hasattr(GoesBoom(), 'bar')
-    with pytest.raises(Exception, message='Oh Noes!'):
+    with pytest.raises(Exception) as excinfo:
         hasattr(GoesBoom(), 'foo')
-    with pytest.raises(Exception, message='boom'):
+    msg, = excinfo.value.args
+    assert msg == 'Oh Noes!'
+    with pytest.raises(Exception) as excinfo:
         hasattr(GoesBoom(), 'boom')
+    msg, = excinfo.value.args
+    assert msg == 'boom'
